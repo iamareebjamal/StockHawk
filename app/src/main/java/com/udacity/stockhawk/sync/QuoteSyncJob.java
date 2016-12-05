@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
@@ -35,11 +34,12 @@ import yahoofinance.quotes.stock.StockQuote;
 
 public final class QuoteSyncJob {
 
-    static final int ONE_OFF_ID = 2;
+    private static final int ONE_OFF_ID = 2;
     private static final String ACTION_DATA_UPDATED = "com.udacity.stockhawk.ACTION_DATA_UPDATED";
     private static final int PERIOD = 300000;
     private static final int INITIAL_BACKOFF = 10000;
     private static final int PERIODIC_ID = 1;
+    private static final int HISTORY_OFFSET = -2;
 
     static void getQuotes(Context context) {
 
@@ -47,7 +47,7 @@ public final class QuoteSyncJob {
 
         Calendar from = Calendar.getInstance();
         Calendar to = Calendar.getInstance();
-        from.add(Calendar.YEAR, -2);
+        from.add(Calendar.YEAR, HISTORY_OFFSET);
 
         try {
 
@@ -76,10 +76,12 @@ public final class QuoteSyncJob {
                 Stock stock = quotes.get(symbol);
                 StockQuote quote = stock.getQuote();
 
-                if(quote == null || quote.getPrice() == null){
+                if (quote == null || quote.getPrice() == null) {
                     Timber.d("Stock not found.");
                     PrefUtils.removeStock(context, symbol);
-                    EventBus.getDefault().post(new MessageEvent(String.format(Locale.getDefault(), context.getString(R.string.error_stock_not_found), symbol)));
+                    EventBus.getDefault().post(
+                            new MessageEvent(String.format(Locale.getDefault(), context.getString(R.string.error_stock_not_found), symbol))
+                    );
                     continue;
                 }
 
@@ -142,7 +144,6 @@ public final class QuoteSyncJob {
 
         scheduler.schedule(builder.build());
     }
-
 
     synchronized public static void initialize(final Context context) {
 
