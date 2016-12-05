@@ -6,6 +6,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DetailTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/ThemeActionBar</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/ThemeActionBar</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
     <style name="PercentChangeTextStyle">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#FFF</item>
@@ -19,5 +27,11 @@
     <style name="StockSymbolTextStyle">
         <item name="android:textSize">25sp</item>
         <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="ThemeActionBar"
+        parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@null</item>
+        <item name="background">@null</item>
     </style>
 </resources>

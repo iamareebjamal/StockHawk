@@ -1,6 +1,7 @@
 package com.udacity.stockhawk.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -17,12 +18,14 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.data.StockProvider;
 import com.udacity.stockhawk.sync.MessageEvent;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
 
@@ -47,11 +50,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.error)
     TextView error;
+    @BindView(R.id.hiddenLayout)
+    LinearLayout hiddenLayout;
     private StockAdapter adapter;
 
     @Override
     public void onClick(String symbol) {
         Timber.d("Symbol clicked: %s", symbol);
+        Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+        intent.putExtra(Contract.Quote.COLUMN_SYMBOL, symbol);
+        startActivity(intent);
     }
 
     @Override
@@ -101,13 +109,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         QuoteSyncJob.syncImmediately(this);
 
-        if (!networkUp() && adapter.getItemCount() == 0) {
+        if (!networkUp()) {
+            swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(this, R.string.toast_no_connectivity, Toast.LENGTH_LONG).show();
+        } else if (!networkUp() && adapter.getItemCount() == 0) {
             swipeRefreshLayout.setRefreshing(false);
             error.setText(getString(R.string.error_no_network));
             error.setVisibility(View.VISIBLE);
-        } else if (!networkUp()) {
-            swipeRefreshLayout.setRefreshing(false);
-            Toast.makeText(this, R.string.toast_no_connectivity, Toast.LENGTH_LONG).show();
         } else if (PrefUtils.getStocks(this).size() == 0) {
             Timber.d("WHYAREWEHERE");
             swipeRefreshLayout.setRefreshing(false);
@@ -115,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             error.setVisibility(View.VISIBLE);
         } else {
             error.setVisibility(View.GONE);
+            hiddenLayout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -156,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (data.getCount() != 0) {
             error.setVisibility(View.GONE);
+            hiddenLayout.setVisibility(View.GONE);
         }
         adapter.setCursor(data);
     }
