@@ -33,11 +33,11 @@ public final class PrefUtils {
             editor.apply();
             return defaultStocks;
         }
-        return prefs.getStringSet(stocksKey, new HashSet<String>());
+        return new HashSet<>(prefs.getStringSet(stocksKey, new HashSet<String>()));
 
     }
 
-    public static void editStockPref(Context context, String symbol, Boolean add) {
+    private static void editStockPref(Context context, String symbol, Boolean add) {
         String key = context.getString(R.string.pref_stocks_key);
         Set<String> stocks = getStocks(context);
 
