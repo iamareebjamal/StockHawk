@@ -1,9 +1,7 @@
 package com.udacity.stockhawk.ui;
 
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
@@ -15,8 +13,6 @@ import android.widget.TextView;
 import com.db.chart.model.LineSet;
 import com.db.chart.view.AxisController;
 import com.db.chart.view.LineChartView;
-import com.db.chart.view.animation.Animation;
-import com.db.chart.view.animation.easing.ElasticEase;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.StringUtils;
 import com.udacity.stockhawk.data.Contract;
@@ -27,7 +23,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -80,7 +75,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         lineSet.setFill(ContextCompat.getColor(this, R.color.material_purple_trans));
 
         String[] datedStocks = history.split("\n");
-        for(String datedStock : datedStocks) {
+        for (String datedStock : datedStocks) {
             String[] stockData = datedStock.split(",");
 
             Calendar calendar = Calendar.getInstance();

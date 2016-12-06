@@ -1,7 +1,5 @@
 package com.udacity.stockhawk;
 
-import android.content.Context;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
