@@ -12,21 +12,76 @@
         xmlns:chart="http://schemas.android.com/apk/res-auto"
         android:id="@+id/linechart"
         android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/activity_vertical_margin"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="@dimen/detail_margin"
+        android:paddingEnd="@dimen/detail_margin"
+        android:gravity="center_horizontal"
         android:background="@color/material_purple_trans"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="#66ffffff"
-            android:text="LOL"/>
+            style="@style/DetailSymbolTextStyle"
+            tools:text="SYMBOL"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                style="@style/DetailTextStyle"
+                tools:text="Stock Name" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                style="@style/DetailTextStyle"
+                tools:text="$670.89"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/absoluteChange"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                style="@style/DetailTextStyle"
+                tools:text="+$3.45"/>
+
+            <TextView
+                android:id="@+id/percentageChange"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                style="@style/DetailTextStyle"
+                tools:text="+0.43"/>
+        </LinearLayout>
+
+
+
+
     </LinearLayout>
 </LinearLayout>

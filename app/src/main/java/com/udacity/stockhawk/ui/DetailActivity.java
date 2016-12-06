@@ -10,6 +10,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.db.chart.model.LineSet;
 import com.db.chart.view.AxisController;
@@ -17,22 +18,38 @@ import com.db.chart.view.LineChartView;
 import com.db.chart.view.animation.Animation;
 import com.db.chart.view.animation.easing.ElasticEase;
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.StringUtils;
 import com.udacity.stockhawk.data.Contract;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int STOCK_LOADER = 0;
+    @BindView(R.id.linechart)
+    LineChartView lineChartView;
+    @BindView(R.id.symbol)
+    TextView symbol;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.price)
+    TextView price;
+    @BindView(R.id.absoluteChange)
+    TextView absoluteChange;
+    @BindView(R.id.percentageChange)
+    TextView percentageChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.bind(this);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -51,7 +68,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     private void handleHistoryData(String history) {
-        LineChartView lineChartView = (LineChartView) findViewById(R.id.linechart);
         lineChartView.dismiss();
         lineChartView.setXAxis(false);
         lineChartView.setYAxis(false);
@@ -75,8 +91,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             Float stock = Float.parseFloat(stockData[1].trim());
 
             lineSet.addPoint(date, stock);
-
-            Timber.d("Date : %s Stock : %s", date, stock);
         }
 
         lineChartView.addData(lineSet);
@@ -107,6 +121,18 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         data.moveToFirst();
         handleHistoryData(data.getString(Contract.Quote.POSITION_HISTORY));
+
+        symbol.setText(data.getString(Contract.Quote.POSITION_SYMBOL));
+        name.setText(data.getString(Contract.Quote.POSITION_NAME));
+        price.setText(
+                StringUtils.formatPrice(data.getFloat(Contract.Quote.POSITION_PRICE))
+        );
+        absoluteChange.setText(
+                StringUtils.formatAbsoluteChange(data.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE))
+        );
+        percentageChange.setText(
+                StringUtils.formatPercentageChange(data.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE) / 100)
+        );
     }
 
     @Override

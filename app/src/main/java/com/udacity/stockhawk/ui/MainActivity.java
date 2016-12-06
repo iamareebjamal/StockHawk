@@ -25,7 +25,6 @@ import android.widget.Toast;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
-import com.udacity.stockhawk.data.StockProvider;
 import com.udacity.stockhawk.sync.MessageEvent;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
 
