@@ -11,9 +11,15 @@
     <color name="material_green">#4CAF50</color>
 
     <color name="material_purple">#673AB7</color>
-    <color name="material_purple_afull">#aa673AB7</color>
+    <color name="material_purple_a900">#aa673AB7</color>
     <color name="material_purple_a500">#33673AB7</color>
     <color name="material_purple_a300">#1f673AB7</color>
     <color name="material_purple_a100">#0f673AB7</color>
+
+    <color name="white_trans_cc">#ccFFFFFF</color>
+    <color name="white_trans_99">#99ffffff</color>
+    <color name="white_trans_77">#77ffffff</color>
+
+    <color name="widget_background">#77333333</color>
 
 </resources>
