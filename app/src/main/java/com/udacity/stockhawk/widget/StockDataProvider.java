@@ -14,12 +14,10 @@ import com.udacity.stockhawk.data.Contract;
 public class StockDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
     private Context context;
-    private Intent intent;
     private Cursor cursor;
 
     public StockDataProvider(Context context, Intent intent) {
         this.context = context;
-        this.intent = intent;
     }
 
     private void loadData() {
@@ -73,9 +71,9 @@ public class StockDataProvider implements RemoteViewsService.RemoteViewsFactory 
         float rawAbsoluteChange = cursor.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
 
         if (rawAbsoluteChange > 0) {
-            remoteViews.setInt(R.id.change, "setBackgroundResource", R.drawable.percent_change_pill_green);
+            remoteViews.setInt(R.id.change, context.getString(R.string.util_background_resource_method), R.drawable.percent_change_pill_green);
         } else {
-            remoteViews.setInt(R.id.change, "setBackgroundResource", R.drawable.percent_change_pill_red);
+            remoteViews.setInt(R.id.change, context.getString(R.string.util_background_resource_method), R.drawable.percent_change_pill_red);
         }
 
         remoteViews.setTextViewText(R.id.change, StringUtils.formatAbsoluteChange(rawAbsoluteChange));

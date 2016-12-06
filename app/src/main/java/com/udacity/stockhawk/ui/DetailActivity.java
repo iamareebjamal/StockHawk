@@ -55,7 +55,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         String receivedSymbol = getIntent().getStringExtra(Contract.Quote.COLUMN_SYMBOL);
 
         if (receivedSymbol == null) {
-            Toast.makeText(this, "Oops! You got here by mistake. I have no symbol to show history of", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.toast_chart_no_symbol), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -90,14 +90,14 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         lineSet.setColor(ContextCompat.getColor(this, R.color.material_purple));
         lineSet.setFill(ContextCompat.getColor(this, R.color.material_purple_a300));
 
-        String[] datedStocks = history.split("\n");
+        String[] datedStocks = history.split(getString(R.string.util_newline));
         for (String datedStock : datedStocks) {
             String[] stockData = datedStock.split(",");
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(Long.parseLong(stockData[0].trim()));
 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat(getString(R.string.util_date_format), Locale.getDefault());
             String date = sdf.format(calendar.getTime());
             Float stock = Float.parseFloat(stockData[1].trim());
 

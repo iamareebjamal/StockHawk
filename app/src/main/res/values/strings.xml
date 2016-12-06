@@ -3,41 +3,46 @@
 
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
-    <string name="pref_stocks_key">stocks</string>
-
-    <string name="chart_no_data">No data</string>
-
+    <string name="pref_stocks_key" translatable="false">stocks</string>
 
     <string name="pref_display_mode_title">Display Mode</string>
-    <string name="pref_display_mode_key">displayMode</string>
-    <string name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
+    <string name="pref_display_mode_key" translatable="false">displayMode</string>
+    <string name="pref_display_mode_default" translatable="false">@string/pref_display_mode_percentage_key</string>
 
-    <string name="pref_display_mode_absolute_key">absolute</string>
-    <string name="pref_display_mode_percentage_key">percentage</string>
+    <string name="pref_display_mode_absolute_key" translatable="false">absolute</string>
+    <string name="pref_display_mode_percentage_key" translatable="false">percentage</string>
 
-    <string name="default_stocks_yahoo">YHOO</string>
-    <string name="default_stocks_apple">AAPL</string>
-    <string name="default_stocks_microsoft">MSFT</string>
-    <string name="default_stocks_facebook">FB</string>
+    <string name="default_stocks_yahoo" translatable="false">YHOO</string>
+    <string name="default_stocks_apple" translatable="false">AAPL</string>
+    <string name="default_stocks_microsoft" translatable="false">MSFT</string>
+    <string name="default_stocks_facebook" translatable="false">FB</string>
 
+    <string name="default_update_action_key" translatable="false">com.udacity.stockhawk.ACTION_DATA_UPDATED</string>
 
     <string name="action_change_units">@string/pref_display_mode_title</string>
-
 
     <string name="dialog_title">Add Stock</string>
     <string name="dialog_hint">Symbol (e.g. GOOG)</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_add">Add</string>
+    <string name="dialog_fragment_key" translatable="false">StockDialogFragment</string>
 
     <string name="error_stock_not_found">Stock %s not found!</string>
     <string name="error_no_network">No network connectivity! Will load stock cursor when the network is available.</string>
     <string name="error_no_stocks">No stocks added! Hit the floating action button to add one.</string>
 
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
+    <string name="toast_chart_no_symbol">Oops! You got here by mistake. I have no symbol to show history of!</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="default_loading_text">Loading Stocks\nPlease Wait</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
+
+    <string name="description_chart">History Chart for Stock</string>
+    <string name="description_add_stock">Add Stock Symbol</string>
+
+    <string name="util_newline" translatable="false">\n</string>
+    <string name="util_delimiter" translatable="false">,</string>
+    <string name="util_date_format" translatable="false">dd-MM-yyyy</string>
+    <string name="util_background_resource_method" translatable="false">setBackgroundResource</string>
 
 </resources>

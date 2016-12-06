@@ -15,7 +15,8 @@
         <com.db.chart.view.LineChartView
             android:id="@+id/linechart"
             android:layout_width="match_parent"
-            android:layout_height="300dp"/>
+            android:layout_height="300dp"
+            android:contentDescription="@string/description_chart"/>
 
         <LinearLayout
             android:layout_width="match_parent"

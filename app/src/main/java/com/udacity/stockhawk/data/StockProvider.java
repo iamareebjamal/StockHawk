@@ -15,7 +15,7 @@ public class StockProvider extends ContentProvider {
     static final int QUOTE = 100;
     static final int QUOTE_FOR_SYMBOL = 101;
 
-    static UriMatcher uriMatcher = buildUriMatcher();
+    private static UriMatcher uriMatcher = buildUriMatcher();
 
     private DbHelper dbHelper;
 
