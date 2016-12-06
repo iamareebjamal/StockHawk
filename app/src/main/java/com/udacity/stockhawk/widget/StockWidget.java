@@ -6,17 +6,11 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
-import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.ui.DetailActivity;
 import com.udacity.stockhawk.ui.MainActivity;
-
-import timber.log.Timber;
 
 public class StockWidget extends AppWidgetProvider {
     private static final String REFRESH_ACTION = "com.udacity.stockhawk.appwidget.action.REFRESH";
@@ -37,6 +31,12 @@ public class StockWidget extends AppWidgetProvider {
 
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list_view);
         appWidgetManager.updateAppWidget(appWidgetId, views);
+    }
+
+    public static void sendRefreshBroadcast(Context context) {
+        Intent intent = new Intent(REFRESH_ACTION);
+        intent.setComponent(new ComponentName(context, StockWidget.class));
+        context.sendBroadcast(intent);
     }
 
     @Override
@@ -69,12 +69,6 @@ public class StockWidget extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
-    }
-
-    public static void sendRefreshBroadcast(Context context) {
-        Intent intent = new Intent(REFRESH_ACTION);
-        intent.setComponent(new ComponentName(context, StockWidget.class));
-        context.sendBroadcast(intent);
     }
 }
 

@@ -12,7 +12,6 @@ import android.net.NetworkInfo;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
-import com.udacity.stockhawk.widget.StockDataProvider;
 import com.udacity.stockhawk.widget.StockWidget;
 
 import org.greenrobot.eventbus.EventBus;

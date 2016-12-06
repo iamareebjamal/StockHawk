@@ -4,17 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Binder;
-import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.StringUtils;
 import com.udacity.stockhawk.data.Contract;
-import com.udacity.stockhawk.data.PrefUtils;
-import com.udacity.stockhawk.ui.MainActivity;
-
-import timber.log.Timber;
 
 public class StockDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
@@ -27,7 +22,7 @@ public class StockDataProvider implements RemoteViewsService.RemoteViewsFactory 
         this.intent = intent;
     }
 
-    private void loadData(){
+    private void loadData() {
         if (cursor != null) {
             cursor.close();
         }
