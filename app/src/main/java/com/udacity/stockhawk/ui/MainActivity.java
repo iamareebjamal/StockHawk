@@ -110,6 +110,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         QuoteSyncJob.syncImmediately(this);
 
+        if (adapter.getItemCount() == 0) {
+            hiddenLayout.setVisibility(View.VISIBLE);
+        }
+
         if (!networkUp()) {
             swipeRefreshLayout.setRefreshing(false);
             Toast.makeText(this, R.string.toast_no_connectivity, Toast.LENGTH_LONG).show();
@@ -124,7 +128,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             error.setVisibility(View.VISIBLE);
         } else {
             error.setVisibility(View.GONE);
-            hiddenLayout.setVisibility(View.VISIBLE);
         }
     }
 

@@ -46,6 +46,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="italic"
             android:text="@string/default_loading_text"/>
 
         <ProgressBar
