@@ -34,6 +34,8 @@
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_chart_no_symbol">Oops! You got here by mistake. I have no symbol to show history of!</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
+    <string name="toast_duplicate_stock">Stock already exists!</string>
+
     <string name="title_activity_detail">DetailActivity</string>
     <string name="default_loading_text">Loading Stocks\nPlease Wait</string>
 

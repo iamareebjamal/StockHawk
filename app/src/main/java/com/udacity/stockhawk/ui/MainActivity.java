@@ -33,6 +33,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Set;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
@@ -137,6 +139,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     void addStock(String symbol) {
         if (symbol != null && !symbol.isEmpty()) {
+
+            Set<String> stocks = PrefUtils.getStocks(this);
+            for (String stock : stocks) {
+                if(stock.equalsIgnoreCase(symbol)){
+                    Toast.makeText(this, getString(R.string.toast_duplicate_stock), Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
 
             if (networkUp()) {
                 swipeRefreshLayout.setRefreshing(true);
