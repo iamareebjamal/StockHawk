@@ -9,7 +9,9 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.db.chart.model.LineSet;
 import com.db.chart.view.AxisController;
@@ -51,7 +53,12 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        String symbol = getIntent().getStringExtra(Contract.Quote.COLUMN_SYMBOL);
+        String receivedSymbol = getIntent().getStringExtra(Contract.Quote.COLUMN_SYMBOL);
+
+        if (receivedSymbol == null) {
+            Toast.makeText(this, "Oops! You got here by mistake. I have no symbol to show history of", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -61,13 +68,13 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         Bundle bundle = new Bundle();
         bundle.putString(
                 Contract.Quote.COLUMN_SYMBOL,
-                symbol
+                receivedSymbol
         );
 
         getSupportLoaderManager().initLoader(STOCK_LOADER, bundle, this);
 
         gridPaint = new Paint();
-        gridPaint.setColor(ContextCompat.getColor(this, R.color.material_purple_light));
+        gridPaint.setColor(ContextCompat.getColor(this, R.color.material_purple_a500));
         gridPaint.setStrokeWidth(5);
     }
 
@@ -82,7 +89,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         LineSet lineSet = new LineSet();
         lineSet.setSmooth(true);
         lineSet.setColor(ContextCompat.getColor(this, R.color.material_purple));
-        lineSet.setFill(ContextCompat.getColor(this, R.color.material_purple_trans));
+        lineSet.setFill(ContextCompat.getColor(this, R.color.material_purple_a300));
 
         String[] datedStocks = history.split("\n");
         for (String datedStock : datedStocks) {

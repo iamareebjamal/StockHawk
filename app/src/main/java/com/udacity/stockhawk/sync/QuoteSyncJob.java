@@ -12,6 +12,8 @@ import android.net.NetworkInfo;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.widget.StockDataProvider;
+import com.udacity.stockhawk.widget.StockWidget;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -123,6 +125,8 @@ public final class QuoteSyncJob {
 
             Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED);
             context.sendBroadcast(dataUpdatedIntent);
+
+            StockWidget.sendRefreshBroadcast(context);
 
         } catch (IOException exception) {
             Timber.e(exception, "Error fetching stock quotes");

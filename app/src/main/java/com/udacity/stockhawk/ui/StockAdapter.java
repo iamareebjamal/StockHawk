@@ -4,9 +4,11 @@ package com.udacity.stockhawk.ui;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.udacity.stockhawk.R;
@@ -93,6 +95,8 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
     }
 
     class StockViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.root_view)
+        LinearLayout rootView;
 
         @BindView(R.id.symbol)
         TextView symbol;
@@ -107,6 +111,10 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
+            TypedValue typedValue = new TypedValue();
+            context.getTheme().resolveAttribute(R.attr.selectableItemBackground, typedValue, true);
+
+            rootView.setBackgroundResource(typedValue.resourceId);
         }
 
         @Override
