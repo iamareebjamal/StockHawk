@@ -1,6 +1,7 @@
 package com.udacity.stockhawk.ui;
 
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.db.chart.model.LineSet;
 import com.db.chart.view.AxisController;
+import com.db.chart.view.ChartView;
 import com.db.chart.view.LineChartView;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.StringUtils;
@@ -40,26 +42,33 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     @BindView(R.id.percentageChange)
     TextView percentageChange;
 
+    private Paint gridPaint;
+    private ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
-        ActionBar actionBar = getSupportActionBar();
+        String symbol = getIntent().getStringExtra(Contract.Quote.COLUMN_SYMBOL);
+
+        actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("");
         }
-
 
         Bundle bundle = new Bundle();
         bundle.putString(
                 Contract.Quote.COLUMN_SYMBOL,
-                getIntent().getStringExtra(Contract.Quote.COLUMN_SYMBOL)
+                symbol
         );
 
         getSupportLoaderManager().initLoader(STOCK_LOADER, bundle, this);
+
+        gridPaint = new Paint();
+        gridPaint.setColor(ContextCompat.getColor(this, R.color.material_purple_light));
+        gridPaint.setStrokeWidth(5);
     }
 
     private void handleHistoryData(String history) {
@@ -68,6 +77,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         lineChartView.setYAxis(false);
         lineChartView.setYLabels(AxisController.LabelPosition.NONE);
         lineChartView.setXLabels(AxisController.LabelPosition.NONE);
+        lineChartView.setGrid(ChartView.GridType.FULL, gridPaint);
 
         LineSet lineSet = new LineSet();
         lineSet.setSmooth(true);
@@ -117,17 +127,19 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         data.moveToFirst();
         handleHistoryData(data.getString(Contract.Quote.POSITION_HISTORY));
 
-        symbol.setText(data.getString(Contract.Quote.POSITION_SYMBOL));
-        name.setText(data.getString(Contract.Quote.POSITION_NAME));
-        price.setText(
-                StringUtils.formatPrice(data.getFloat(Contract.Quote.POSITION_PRICE))
-        );
-        absoluteChange.setText(
-                StringUtils.formatAbsoluteChange(data.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE))
-        );
-        percentageChange.setText(
-                StringUtils.formatPercentageChange(data.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE) / 100)
-        );
+        String stockName = data.getString(Contract.Quote.POSITION_NAME);
+        String stockSymbol = data.getString(Contract.Quote.POSITION_SYMBOL);
+        float stockPrice = data.getFloat(Contract.Quote.POSITION_PRICE);
+        float stockAbsoluteChange = data.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
+        float stockPercentageChange = data.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
+
+        if (actionBar != null) actionBar.setTitle(stockName);
+
+        symbol.setText(stockSymbol);
+        name.setText(stockName);
+        price.setText(StringUtils.formatPrice(stockPrice));
+        absoluteChange.setText(StringUtils.formatAbsoluteChange(stockAbsoluteChange));
+        percentageChange.setText(StringUtils.formatPercentageChange(stockPercentageChange / 100));
     }
 
     @Override

@@ -11,6 +11,7 @@
     <color name="material_green_700">#00C853</color>
 
     <color name="material_purple">#673AB7</color>
+    <color name="material_purple_light">#33673AB7</color>
     <color name="material_purple_trans">#1f673AB7</color>
     <color name="material_purple_fulltrans">#0f673AB7</color>
 
